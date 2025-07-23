@@ -29,9 +29,7 @@
 
 ## 📖 Abstract
 
-Spatial transcriptomics reveals gene expression patterns within tissue context, enabling precision oncology applications such as treatment response prediction, but its high cost and technical complexity limit clinical adoption. Predicting spatial gene expression (biomarkers) from routine histopathology images offers a practical alternative, yet current vision foundation models (VFMs) in pathology based on Vision Transformer (ViT) backbones perform below clinical standards. 
-
-We introduce **MV<sub>Hybrid</sub>**, a hybrid backbone architecture combining state space models (SSMs) with ViT that leverages the low-frequency bias of negative real eigenvalues to better capture subtle morphological patterns correlating with molecular phenotypes.
+Spatial transcriptomics reveals gene expression patterns within tissue context, enabling precision oncology applications such as treatment response prediction, but its high cost and technical complexity limit clinical adoption. Predicting spatial gene expression (biomarkers) from routine histopathology images offers a practical alternative, yet current vision foundation models (VFMs) in pathology based on Vision Transformer (ViT) backbones perform below clinical standards. Given that VFMs are trained on millions of diverse whole slide images, we hypothesize that architectural innovations beyond ViTs may better capture the low-frequency, subtle morphological patterns correlating with molecular phenotypes. By demonstrating that state space models initialized with negative real eigenvalues exhibit strong low-frequency bias, we introduce MV<sub>Hybrid</sub>, a hybrid backbone architecture combining state space models (SSMs) with ViT. We compare five other different backbone architectures for pathology VFMs, all pretrained on identical colorectal cancer datasets using the DINOv2 self-supervised learning method. We evaluate all pretrained models using both random split and leave-one-study-out (LOSO) settings of the same biomarker dataset. In LOSO evaluation, MV<sub>Hybrid</sub> achieves 57% higher correlation than the best-performing ViT and shows 43% smaller performance degradation compared to random split in gene expression prediction, demonstrating superior performance and robustness, respectively. Furthermore, MV<sub>Hybrid</sub> shows equal or better downstream performance in classification, patch retrieval, and survival prediction tasks compared to that of ViT, showing its promise as a next-generation pathology VFM backbone.
 
 ## 🏗️ Architecture
 
@@ -42,7 +40,11 @@ We introduce **MV<sub>Hybrid</sub>**, a hybrid backbone architecture combining s
 MV<sub>Hybrid</sub> architecture features:
 - **First 12 layers**: MambaVision blocks (red) with EinFFT channel mixing (blue)
 - **Last 12 layers**: Standard Vision Transformer blocks with attention (red) and MLP (blue)
-- **Key Innovation**: Negative real eigenvalues in SSM layers provide enhanced low-frequency bias for capturing subtle biological features
+- **Key Innovation**: Negative real eigenvalues in SSM layers provide enhanced low-frequency bias for capturing subtle biological features. Following [Yu et al.'s work](https://openreview.net/pdf?id=wkHcXDv7cv), MV<sub>Hybrid</sub> leverages the mathematical property that SSMs with negative real eigenvalues exhibit stronger low-frequency bias compared to complex eigenvalues:
+  - **Complex eigenvalues**: Total variation ~ O(1/(ω₀ - wⱼ))
+  - **Negative real eigenvalues**: Total variation ~ O(1/ω₀)
+  
+  This faster decay at high frequencies allows MV<sub>Hybrid</sub> to better capture subtle morphological patterns associated with molecular phenotypes
 
 ## 📊 Main Results
 
@@ -136,15 +138,6 @@ sbatch dino/Train_MVHybrid_DINOv2_SLURM.sh
 ### Preprocessing
 WSI patches were extracted using [CLAM](https://github.com/mahmoodlab/CLAM)'s patching function with biopsy preset at 256×256 resolution.
 
-## 🔬 Technical Innovation
-
-### Low-Frequency Bias Theory
-MV<sub>Hybrid</sub> leverages the mathematical property that SSMs with negative real eigenvalues exhibit enhanced low-frequency bias:
-
-- **Complex eigenvalues**: Total variation ~ O(1/(ω₀ - wⱼ))
-- **Negative real eigenvalues**: Total variation ~ O(1/ω₀)
-
-This faster decay at high frequencies allows MV<sub>Hybrid</sub> to better capture subtle morphological patterns associated with molecular phenotypes.
 
 ## 📝 Citation
 
@@ -176,11 +169,7 @@ This research was supported by a grant from the Korea Health Technology R&D Proj
 ## 📧 Contact
 
 For questions and collaborations, please reach out to:
-- Won June Cho: [wjcho@deepnoid.com](mailto:wjcho@deepnoid.com)
-- Yosep Chong: [ychong@catholic.ac.kr](mailto:ychong@catholic.ac.kr)
+- Won June Cho: [wjcho@deepnoid.com](mailto:wjcho@deepnoid.com) [wonjunecho8@gmail.com](mailto:wonjunecho8@gmail.com)
 
 ---
 
-<div align="center">
-<sub>Made with ❤️ by the Deepnoid AI Research Team</sub>
-</div>
