@@ -21,8 +21,8 @@
 <table>
 <tr>
 <td align="center"><b>🎯 57% Higher Correlation</b><br/>than best ViT in LOSO evaluation</td>
-<td align="center"><b>💪 43% Better Robustness</b><br/>smaller performance drop vs random split</td>
-<td align="center"><b>🏆 State-of-the-Art</b><br/>on biomarker prediction tasks</td>
+<td align="center"><b>💪 43% Better Robustness</b><br/> or smaller performance drop than best ViT</td>
+<td align="center"><b>🏆 State-of-the-Art</b><br/> backbone on biomarker prediction tasks</td>
 </tr>
 </table>
 </div>
@@ -44,7 +44,7 @@ MV<sub>Hybrid</sub> architecture features:
   - **Complex eigenvalues**: Total variation ~ O(1/(ω₀ - wⱼ))
   - **Negative real eigenvalues**: Total variation ~ O(1/ω₀)
   
-  This faster decay at high frequencies allows MV<sub>Hybrid</sub> to better capture subtle morphological patterns associated with molecular phenotypes
+  This faster decay at high frequencies allows MV<sub>Hybrid</sub> to better capture subtle morphological patterns associated with molecular phenotypes.
 
 ## 📊 Main Results
 
@@ -94,12 +94,22 @@ MV<sub>Hybrid</sub> architecture features:
 
 > **Key Finding**: MV<sub>Hybrid</sub> demonstrates significantly better robustness to distribution shifts (LOSO evaluation) with the smallest performance degradation across all metrics.
 
+### 🎯 Other Downstream Tasks
+
+Beyond biomarker prediction, MV<sub>Hybrid</sub> shows equal or better performance compared to ViTs across multiple downstream tasks in colorectal cancer:
+
+- **Classification tasks**: MSI/MSS classification, morphology-based classification on MHIST and UniToPatho datasets
+- **Zero-shot patch retrieval**: Superior performance on NCT-CRC-100K dataset
+- **Survival prediction**: Improved c-index on TCGA-CRC dataset
+
+For detailed results and analysis of these tasks, please refer to our [full paper](https://openreview.net/pdf?id=vd1xqJLW4X).
+
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Python 3.11
 - CUDA 12.1 compatible GPU
-- SLURM cluster for multi-node training (optional)
+- SLURM cluster for multi-node training (preferred)
 
 ### Installation
 
@@ -132,8 +142,8 @@ sbatch dino/Train_MVHybrid_DINOv2_SLURM.sh
 ## 📂 Dataset
 
 ### Sources
-- **[HunCRC](https://doi.org/10.5281/zenodo.8274948)**: Colorectal cancer histopathology dataset
-- **[IMP-CRS2024](https://doi.org/10.5281/zenodo.11092840)**: Colorectal screening dataset
+- **[HunCRC](https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=91357370)**: Digital Pathological Slides from Hungarian Colorectal Cancer Screening
+- **[IMP-CRS2024](https://rdm.inesctec.pt/dataset/nis-2023-008)**: IMP Whole-Slide Images of Colorectal Samples 2024
 
 ### Preprocessing
 WSI patches were extracted using [CLAM](https://github.com/mahmoodlab/CLAM)'s patching function with biopsy preset at 256×256 resolution.
@@ -160,8 +170,8 @@ If you find this work useful, please cite our paper:
 ## 🙏 Acknowledgments
 
 This work builds upon and extends:
-- **[DINOv2](https://github.com/facebookresearch/dinov2)**: Self-supervised learning framework adapted for hybrid architectures
-- **[MambaVision](https://github.com/NVlabs/MambaVision)**: State space model architecture modified from hierarchical to isotropic design for DINOv2 compatibility
+- **[DINOv2](https://github.com/facebookresearch/dinov2)**: Original DINOv2 method modified for MV<sub>Hybrid</sub> training. 
+- **[MambaVision](https://github.com/NVlabs/MambaVision)**: Original MambaVision architecture modified from hierarchical to isotropic design for DINOv2 compatibility
 
 ### Funding
 This research was supported by a grant from the Korea Health Technology R&D Project through the Korea Health Industry Development Institute (KHIDI), funded by the Ministry of Health & Welfare, Republic of Korea (grant number: RS-2021-KH113146).
@@ -169,7 +179,7 @@ This research was supported by a grant from the Korea Health Technology R&D Proj
 ## 📧 Contact
 
 For questions and collaborations, please reach out to:
-- Won June Cho: [wjcho@deepnoid.com](mailto:wjcho@deepnoid.com) [wonjunecho8@gmail.com](mailto:wonjunecho8@gmail.com)
+- Won June Cho: [wjcho@deepnoid.com](mailto:wjcho@deepnoid.com) or [wonjunecho8@gmail.com](mailto:wonjunecho8@gmail.com)
 
 ---
 
