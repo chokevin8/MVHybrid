@@ -20,7 +20,7 @@
 <div align="center">
 <table>
 <tr>
-<td align="center"><b>🎯 57% Higher Correlation</b><br/>than best ViT in LOSO evaluation</td>
+<td align="center"><b>🎯 57% Higher Correlation</b><br/>than best ViT in LOSO (leave-one-study-out) evaluation</td>
 <td align="center"><b>💪 43% Better Robustness</b><br/> or smaller performance drop than best ViT</td>
 <td align="center"><b>🏆 State-of-the-Art</b><br/> backbone on biomarker prediction tasks</td>
 </tr>
@@ -33,7 +33,7 @@ Spatial transcriptomics reveals gene expression patterns within tissue context, 
 
 ## 🔑 Key Contributions
 
-1. **Hybrid architecture** combining MambaVision's SSM layers with ViT for enhanced low-frequency feature capture resulting in **superior performance and robustness** demonstrated through 57 higher correlation and43% smaller performance degradation in distribution shift scenarios compared to pure ViT backbone
+1. **Hybrid architecture** combining MambaVision's SSM layers with ViT for enhanced low-frequency feature capture resulting in **superior performance and robustness** demonstrated through 57 higher correlation and 43% smaller performance degradation in distribution shift scenarios compared to pure ViT backbone
 2. **First systematic comparison** of multiple VFM backbone architectures (SSM and ViT variants) pretrained and evaluated on identical datasets
 
 ## 📂 Dataset
