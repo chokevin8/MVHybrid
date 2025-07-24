@@ -33,7 +33,7 @@ Spatial transcriptomics reveals gene expression patterns within tissue context, 
 
 ## 🔑 Key Contributions
 
-1. **Hybrid architecture** combining MambaVision's SSM layers with ViT for enhanced low-frequency feature capture resulting in **superior performance and robustness** demonstrated through 43% smaller performance degradation in distribution shift scenarios
+1. **Hybrid architecture** combining MambaVision's SSM layers with ViT for enhanced low-frequency feature capture resulting in **superior performance and robustness** demonstrated through 57 higher correlation and43% smaller performance degradation in distribution shift scenarios compared to pure ViT backbone
 2. **First systematic comparison** of multiple VFM backbone architectures (SSM and ViT variants) pretrained and evaluated on identical datasets
 
 ## 📂 Dataset
@@ -52,8 +52,8 @@ Spatial transcriptomics reveals gene expression patterns within tissue context, 
 - **WSI patches**: Extracted using [CLAM](https://github.com/mahmoodlab/CLAM)'s patching function with biopsy preset at 256×256 resolution
 - **Gene expression**: Normalized using log1p transformation
 - **Gene selection**: 
-  - HVG (Highly Variable Genes): Top genes with high expression variance across samples
-  - HMHVG (High Mean Highly Variable Genes): Genes that are both abundantly expressed and highly variable
+  - HVG (Highly Variable Genes): Top genes with high expression variance across samples (via *scanpy*)
+  - HMHVG (High Mean Highly Variable Genes): Top genes from HVG that are also highly expressed
 
 ## 🏗️ Architecture
 
