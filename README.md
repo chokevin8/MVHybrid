@@ -33,10 +33,27 @@ Spatial transcriptomics reveals gene expression patterns within tissue context, 
 
 ## 🔑 Key Contributions
 
-1. **First systematic comparison** of multiple VFM backbone architectures (SSM and ViT variants) pretrained and evaluated on identical datasets
-2. **Novel hybrid architecture** combining MambaVision's SSM layers with ViT for enhanced low-frequency feature capture
-3. **Comprehensive evaluation** on spatial transcriptomics prediction using HEST datasets with both random and LOSO (Leave-One-Study-Out) settings
-4. **Superior robustness** demonstrated through 43% smaller performance degradation in distribution shift scenarios
+1. **Hybrid architecture** combining MambaVision's SSM layers with ViT for enhanced low-frequency feature capture resulting in **superior performance and robustness** demonstrated through 43% smaller performance degradation in distribution shift scenarios
+2. **First systematic comparison** of multiple VFM backbone architectures (SSM and ViT variants) pretrained and evaluated on identical datasets
+
+## 📂 Dataset
+
+### Pretraining Data
+- **[HunCRC](https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=91357370)**: Digital Pathological Slides from Hungarian Colorectal Cancer Screening
+- **[IMP-CRS2024](https://rdm.inesctec.pt/dataset/nis-2023-008)**: IMP Whole-Slide Images of Colorectal Samples 2024
+
+### Spatial Transcriptomics Data for Biomarker Prediction
+- **[HEST-1k](https://github.com/mahmoodlab/HEST)**: Human Embedded Spatial Transcriptomics dataset
+  - **HEST-Benchmark**: 8 WSI-ST pairs from 4 patients (colorectal samples)
+  - **HEST-Extended**: 54 samples from 8 different study sources (COAD, READ, COADREAD)
+  - Data includes 10X Visium, VisiumHD, and Xenium spatial transcriptomics paired with H&E WSIs
+
+### Preprocessing
+- **WSI patches**: Extracted using [CLAM](https://github.com/mahmoodlab/CLAM)'s patching function with biopsy preset at 256×256 resolution
+- **Gene expression**: Normalized using log1p transformation
+- **Gene selection**: 
+  - HVG (Highly Variable Genes): Top genes with high expression variance across samples
+  - HMHVG (High Mean Highly Variable Genes): Genes that are both abundantly expressed and highly variable
 
 ## 🏗️ Architecture
 
@@ -152,25 +169,6 @@ The model is trained using DINOv2 self-supervised learning on a SLURM cluster wi
 ```bash
 sbatch dino/Train_MVHybrid_DINOv2_SLURM.sh
 ```
-
-## 📂 Dataset
-
-### Pretraining Data
-- **[HunCRC](https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=91357370)**: Digital Pathological Slides from Hungarian Colorectal Cancer Screening
-- **[IMP-CRS2024](https://rdm.inesctec.pt/dataset/nis-2023-008)**: IMP Whole-Slide Images of Colorectal Samples 2024
-
-### Spatial Transcriptomics Data for Biomarker Prediction
-- **[HEST-1k](https://github.com/mahmoodlab/HEST)**: Human Embedded Spatial Transcriptomics dataset
-  - **HEST-Benchmark**: 8 WSI-ST pairs from 4 patients (colorectal samples)
-  - **HEST-Extended**: 54 samples from 8 different study sources (COAD, READ, COADREAD)
-  - Data includes 10X Visium, VisiumHD, and Xenium spatial transcriptomics paired with H&E WSIs
-
-### Preprocessing
-- **WSI patches**: Extracted using [CLAM](https://github.com/mahmoodlab/CLAM)'s patching function with biopsy preset at 256×256 resolution
-- **Gene expression**: Normalized using log1p transformation
-- **Gene selection**: 
-  - HVG (Highly Variable Genes): Top genes with high expression variance across samples
-  - HMHVG (High Mean Highly Variable Genes): Genes that are both abundantly expressed and highly variable
 
 
 ## 📝 Citation
