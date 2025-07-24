@@ -33,8 +33,8 @@ Spatial transcriptomics reveals gene expression patterns within tissue context, 
 
 ## 🔑 Key Contributions
 
-1. **Hybrid architecture** combining MambaVision's SSM layers with ViT for enhanced low-frequency feature capture resulting in **superior performance and robustness** demonstrated through 57 higher correlation and 43% smaller performance degradation in distribution shift scenarios compared to pure ViT backbone
-2. **First systematic comparison** of multiple VFM backbone architectures (SSM and ViT variants) pretrained and evaluated on identical datasets
+1. **Hybrid architecture** combining MambaVision's SSM layers with ViT for enhanced low-frequency feature capture resulting in **superior performance and robustness** demonstrated through 57% higher correlation and 43% smaller performance degradation in distribution shift scenarios compared to pure ViT backbone
+2. **First systematic comparison** of multiple VFM backbone architectures (SSM variants and ViT) pretrained and evaluated on identical datasets
 
 ## 📂 Dataset
 
@@ -53,7 +53,7 @@ Spatial transcriptomics reveals gene expression patterns within tissue context, 
 - **Gene expression**: Normalized using log1p transformation
 - **Gene selection**: 
   - HVG (Highly Variable Genes): Top genes with high expression variance across samples (via *scanpy*)
-  - HMHVG (High Mean Highly Variable Genes): Top genes from HVG that are also highly expressed
+  - HMHVG (High Mean Highly Variable Genes): Top genes from HVG that are also highly expressed across samples
 
 ## 🏗️ Architecture
 
@@ -62,8 +62,8 @@ Spatial transcriptomics reveals gene expression patterns within tissue context, 
 </div>
 
 MV<sub>Hybrid</sub> architecture features:
-- **First 12 layers**: MambaVision blocks (red) with EinFFT channel mixing (blue)
-- **Last 12 layers**: Standard Vision Transformer blocks with attention (red) and MLP (blue)
+- **First 12 layers**: MambaVision (MV) sequence mixing blocks (red) with EinFFT channel mixing blocks (blue)
+- **Last 12 layers**: Standard Vision Transformer (ViT) blocks with attention (red) and MLP (blue)
 - **Key Innovation**: Negative real eigenvalues in SSM layers provide enhanced low-frequency bias for capturing subtle biological features. Following [Yu et al.'s work](https://openreview.net/pdf?id=wkHcXDv7cv), MV<sub>Hybrid</sub> leverages the mathematical property that SSMs with negative real eigenvalues exhibit stronger low-frequency bias compared to complex eigenvalues:
   - **Complex eigenvalues**: Total variation ~ O(1/(ω₀ - wⱼ))
   - **Negative real eigenvalues**: Total variation ~ O(1/ω₀)
@@ -123,15 +123,15 @@ MV<sub>Hybrid</sub> architecture features:
 
 </div>
 
-> **Key Finding**: MV<sub>Hybrid</sub> demonstrates significantly better robustness to distribution shifts (LOSO evaluation) with the smallest performance degradation across all metrics.
+> **Key Finding**: MV<sub>Hybrid</sub> demonstrates **higher correlation and better robustness** to distribution shifts (LOSO evaluation) with the smallest performance degradation across all metrics.
 
 ### 🎯 Other Downstream Tasks
 
-Beyond biomarker prediction, MV<sub>Hybrid</sub> shows equal or better performance compared to ViTs across multiple downstream tasks in colorectal cancer:
+Beyond biomarker prediction, MV<sub>Hybrid</sub> shows ***equal or better*** performance compared to ViTs across multiple downstream tasks in colorectal cancer:
 
-- **Classification tasks**: MSI/MSS classification, morphology-based classification on MHIST and UniToPatho datasets
-- **Zero-shot patch retrieval**: Superior performance on NCT-CRC-100K dataset
-- **Survival prediction**: Improved c-index on TCGA-CRC dataset
+- **Classification tasks**: MSI/MSS molecular-based classification on TCGA-CRC-MSI WSI dataset, morphology-based subtype/tissue classification on MHIST/UniToPatho patch datasets
+- **Zero-shot patch retrieval**: Embedding prototype based patch retrieval on NCT-CRC-100K patch dataset
+- **Survival prediction**: Unsupervised Gaussian Mixture Models (GMM) based survival prediction on TCGA-CRC WSI dataset
 
 For detailed results and analysis of these tasks, please refer to our [full paper](https://openreview.net/pdf?id=vd1xqJLW4X).
 
