@@ -31,6 +31,13 @@
 
 Spatial transcriptomics reveals gene expression patterns within tissue context, enabling precision oncology applications such as treatment response prediction, but its high cost and technical complexity limit clinical adoption. Predicting spatial gene expression (biomarkers) from routine histopathology images offers a practical alternative, yet current vision foundation models (VFMs) in pathology based on Vision Transformer (ViT) backbones perform below clinical standards. Given that VFMs are trained on millions of diverse whole slide images, we hypothesize that architectural innovations beyond ViTs may better capture the low-frequency, subtle morphological patterns correlating with molecular phenotypes. By demonstrating that state space models initialized with negative real eigenvalues exhibit strong low-frequency bias, we introduce MV<sub>Hybrid</sub>, a hybrid backbone architecture combining state space models (SSMs) with ViT. We compare five other different backbone architectures for pathology VFMs, all pretrained on identical colorectal cancer datasets using the DINOv2 self-supervised learning method. We evaluate all pretrained models using both random split and leave-one-study-out (LOSO) settings of the same biomarker dataset. In LOSO evaluation, MV<sub>Hybrid</sub> achieves 57% higher correlation than the best-performing ViT and shows 43% smaller performance degradation compared to random split in gene expression prediction, demonstrating superior performance and robustness, respectively. Furthermore, MV<sub>Hybrid</sub> shows equal or better downstream performance in classification, patch retrieval, and survival prediction tasks compared to that of ViT, showing its promise as a next-generation pathology VFM backbone.
 
+## 🔑 Key Contributions
+
+1. **First systematic comparison** of multiple VFM backbone architectures (SSM and ViT variants) pretrained and evaluated on identical datasets
+2. **Novel hybrid architecture** combining MambaVision's SSM layers with ViT for enhanced low-frequency feature capture
+3. **Comprehensive evaluation** on spatial transcriptomics prediction using HEST datasets with both random and LOSO (Leave-One-Study-Out) settings
+4. **Superior robustness** demonstrated through 43% smaller performance degradation in distribution shift scenarios
+
 ## 🏗️ Architecture
 
 <div align="center">
@@ -49,6 +56,13 @@ MV<sub>Hybrid</sub> architecture features:
 ## 📊 Main Results
 
 ### 🧬 Biomarker Prediction Performance
+
+**Evaluation Methodology**: All models were evaluated by training Ridge regression on extracted patch embeddings to predict spatial gene expression values. The evaluation uses:
+- **HEST-Benchmark**: Patient-wise 4-fold cross-validation with top 50 HVGs
+- **HEST-Extended**: Two evaluation settings to assess robustness:
+  - **Random Split**: 10-fold cross-validation mixing all study sources
+  - **LOSO (Leave-One-Study-Out)**: 8-fold evaluation where each study source is held out as test set
+- **Metrics**: Pearson Correlation Coefficient (PCC) for all genes and top-10 genes (PCC-10), Mean Absolute Error (MAE), Mean Squared Error (MSE)
 
 #### HEST-Benchmark Results
 <div align="center">
@@ -141,12 +155,22 @@ sbatch dino/Train_MVHybrid_DINOv2_SLURM.sh
 
 ## 📂 Dataset
 
-### Sources
+### Pretraining Data
 - **[HunCRC](https://wiki.cancerimagingarchive.net/pages/viewpage.action?pageId=91357370)**: Digital Pathological Slides from Hungarian Colorectal Cancer Screening
 - **[IMP-CRS2024](https://rdm.inesctec.pt/dataset/nis-2023-008)**: IMP Whole-Slide Images of Colorectal Samples 2024
 
+### Spatial Transcriptomics Data for Biomarker Prediction
+- **[HEST-1k](https://github.com/mahmoodlab/HEST)**: Human Embedded Spatial Transcriptomics dataset
+  - **HEST-Benchmark**: 8 WSI-ST pairs from 4 patients (colorectal samples)
+  - **HEST-Extended**: 54 samples from 8 different study sources (COAD, READ, COADREAD)
+  - Data includes 10X Visium, VisiumHD, and Xenium spatial transcriptomics paired with H&E WSIs
+
 ### Preprocessing
-WSI patches were extracted using [CLAM](https://github.com/mahmoodlab/CLAM)'s patching function with biopsy preset at 256×256 resolution.
+- **WSI patches**: Extracted using [CLAM](https://github.com/mahmoodlab/CLAM)'s patching function with biopsy preset at 256×256 resolution
+- **Gene expression**: Normalized using log1p transformation
+- **Gene selection**: 
+  - HVG (Highly Variable Genes): Top genes with high expression variance across samples
+  - HMHVG (High Mean Highly Variable Genes): Genes that are both abundantly expressed and highly variable
 
 
 ## 📝 Citation
