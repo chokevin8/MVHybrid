@@ -1,5 +1,7 @@
 # 🔬 MV<sub>Hybrid</sub>: Hybrid State Space-Vision Transformer for Pathology Foundation Models (MICCAI 2025 Workshop COMPAYL (Oral))
 
+**MICCAI 2025 Workshop COMPAYL (Oral)**
+
 <div align="center">
 
 [![Paper](https://img.shields.io/badge/Paper-OpenReview-red)](https://openreview.net/pdf?id=vd1xqJLW4X)
