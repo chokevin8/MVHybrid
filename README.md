@@ -9,7 +9,7 @@
 [![Paper](https://img.shields.io/badge/Paper-OpenReview-red)](https://openreview.net/pdf?id=vd1xqJLW4X)
 [![Conference](https://img.shields.io/badge/MICCAI%202025-COMPAYL-blue)](https://openreview.net/forum?id=vd1xqJLW4X)
 [![Python](https://img.shields.io/badge/Python-3.11-green)](https://www.python.org/downloads/)
-[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-lightgrey.svg)](LICENSE)
 
 **[Won June Cho](mailto:wjcho@deepnoid.com)<sup>1</sup>, [Hongjun Yoon](mailto:hyoon@deepnoid.com)<sup>1</sup>, [Daeky Jeong](mailto:dkjeong@deepnoid.com)<sup>1</sup>, [Hyeongyeol Lim](mailto:hylim@deepnoid.com)<sup>1</sup>, [Yosep Chong](mailto:ychong@catholic.ac.kr)<sup>2</sup>**
 
